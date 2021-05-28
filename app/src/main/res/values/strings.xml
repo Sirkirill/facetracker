@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name" translatable="false">Collections</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="password_required">Password required</string>
+    <string name="wrong_username">Wrong username</string>
+    <string name="username_required">Username required</string>
+    <string name="something_wrong">Something went wrong</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="passwords_not_match">Passwords do not match</string>
+    <string name="email_required">Email required</string>
+    <string name="wrong_email">Wrong email</string>
+    <string name="languages">Languages</string>
+    <string name="logout">Logout</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="deadline">Deadline:</string>
+    <string name="units">Units:</string>
+    <string name="my_tasks">My Tasks</string>
+    <string name="task">Task</string>
+    <string name="description">Description:</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="last_change">Last change:</string>
+    <string name="deadline_has_expired">Deadline has expired</string>
+    <string name="creator">Creator:</string>
+    <string name="from_date">%1s %2sh</string>
+    <string name="username_tag">\@%1s</string>
+</resources>

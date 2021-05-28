@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">Вхід</string>
+    <string name="register">Реєстрація</string>
+    <string name="password">Пароль</string>
+    <string name="password_required">Пароль необхіден</string>
+    <string name="username">Ім\'я користувача</string>
+    <string name="username_required">Ім\'я користувача необхідне</string>
+    <string name="wrong_username">Неправильне ім\'я користувача</string>
+    <string name="something_wrong">Щось пішло не так</string>
+    <string name="email">Електронна пошта</string>
+    <string name="confirm_password">Підтвердіть пароль</string>
+    <string name="email_required">Електронна пошта необхідна</string>
+    <string name="languages">Мови</string>
+    <string name="logout">Вихід</string>
+    <string name="passwords_not_match">Паролі не співпадають</string>
+    <string name="wrong_email">Неправильна електронна пошта</string>
+    <string name="cancel">Відміна</string>
+    <string name="ok">Ок</string>
+    <string name="logout_message">Ви впевнені що хочете вийти?</string>
+    <string name="deadline">Зробити до:</string>
+    <string name="my_tasks">Мої завдання</string>
+    <string name="units">Юніти:</string>
+    <string name="task">Завдання</string>
+    <string name="creator">Творець:</string>
+    <string name="deadline_has_expired">Термін дії закінчився</string>
+    <string name="description">Опис:</string>
+    <string name="from">Початок:</string>
+    <string name="from_date">%1s %2sгод</string>
+    <string name="last_change">Остання зміна:</string>
+    <string name="to">Кінець:</string>
+</resources>
