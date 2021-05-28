@@ -13,7 +13,7 @@ import ua.nure.myapplication.api.requests.RegisterRequest
 import ua.nure.myapplication.api.responses.DetailResponse
 import ua.nure.myapplication.api.responses.LoginResponse
 
-const val authBase = "/rest-auth"
+const val authBase = "/api/profiles"
 const val itemsBase = "/items"
 
 interface Api {
@@ -26,7 +26,7 @@ interface Api {
     @GET("$authBase/user/")
     fun getUserItems() : Call<UserItems>
 
-    @POST("$authBase/logout/")
+    @GET("$authBase/logout/")
     fun logout() : Call<DetailResponse?>
 
     @GET("$itemsBase/{id}/")

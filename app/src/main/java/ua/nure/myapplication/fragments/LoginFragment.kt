@@ -89,7 +89,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     response: Response<LoginResponse>
                 ) {
                     if (response.body() != null) {
-                        SharedPrefManager.getInstance(activity!!).saveToken(response.body()!!.key)
+                        SharedPrefManager.getInstance(activity!!).saveToken(response.body()!!.token)
                         val intent = Intent(activity!!, MainActivity::class.java)
                         intent.putExtra(
                             "lang",

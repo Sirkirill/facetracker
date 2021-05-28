@@ -58,12 +58,9 @@ class AuthorizationActivity : AppCompatActivity(), View.OnClickListener {
 
         tvLogin = findViewById(R.id.tv_login)
         tvLogin.setOnClickListener(this)
-
-        tvRegister = findViewById(R.id.tv_register)
-        tvRegister.setOnClickListener(this)
-
         lang = intent.getStringExtra("lang")
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.authorization_menu, menu)
@@ -110,9 +107,6 @@ class AuthorizationActivity : AppCompatActivity(), View.OnClickListener {
                 pagerAuth.currentItem = 0
             }
 
-            R.id.tv_register -> {
-                pagerAuth.currentItem = 1
-            }
         }
     }
 }

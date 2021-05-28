@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                 call: Call<DetailResponse?>,
                 response: Response<DetailResponse?>
             ) {
-                if (response.body() != null) {
+                if (response.isSuccessful) {
                     SharedPrefManager.getInstance(this@MainActivity).logout()
                     val intent = Intent(this@MainActivity, AuthorizationActivity::class.java)
                     intent.putExtra(

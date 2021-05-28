@@ -43,7 +43,7 @@ class RetrofitClient(val lang: String, val auth: String?) {
     }
 
     companion object {
-        private const val BASE_URL = "https://api-collections.herokuapp.com"
+        private const val BASE_URL = "http://facein-backend.herokuapp.com/"
         private var mInstance: RetrofitClient? = null
         @Synchronized
         fun getInstance(mCtx: Context): RetrofitClient {
