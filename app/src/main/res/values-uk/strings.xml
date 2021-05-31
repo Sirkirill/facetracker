@@ -29,4 +29,5 @@
     <string name="from_date">%1s %2sгод</string>
     <string name="last_change">Остання зміна:</string>
     <string name="to">Кінець:</string>
+    <string name="username_tag">\@%1s</string>
 </resources>
