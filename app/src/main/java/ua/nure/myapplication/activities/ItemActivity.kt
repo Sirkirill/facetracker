@@ -113,7 +113,7 @@ class ItemActivity : AppCompatActivity() {
         if (post!!.photo != null) {
             Picasso.get().load(post!!.photo.image).into(tvPhoto)
         }
-        tvUser.text = post?.photo?.user?.username
+        tvUser.text = post?.photo?.user
         tvNote.setText(post?.note)
 
 //        if (isDeadlinePassed(post!!.end_date.replace("T", "").substring(0, 15))) {

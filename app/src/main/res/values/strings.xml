@@ -37,4 +37,5 @@
     <string name="is_reacted">Reacted</string>
     <string name="save">Save</string>
     <string name="notes">Notes</string>
+    <string name="date">Time</string>
 </resources>

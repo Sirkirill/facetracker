@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ua.nure.myapplication.R
 import ua.nure.myapplication.activities.ItemActivity
 import ua.nure.myapplication.api.models.Post
+import ua.nure.myapplication.helpers.LocaleHelper
 
 
 class ItemsAdapter(
@@ -24,9 +26,10 @@ class ItemsAdapter(
 
     class EventsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvRoom: TextView = view.findViewById(R.id.tv_room)
-        val tvPhoto: ImageView = view.findViewById(R.id.tv_photo)
         val tvUser: TextView = view.findViewById(R.id.tv_user)
         val llItem: LinearLayout = view.findViewById(R.id.ll_item)
+        val Card: CardView = view.findViewById(R.id.card)
+        val tvDate: TextView = view.findViewById(R.id.tv_datetime)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsViewHolder {
@@ -47,10 +50,17 @@ class ItemsAdapter(
     override fun onBindViewHolder(holder: EventsViewHolder, position: Int) {
         val post = posts!![position]
         holder.tvRoom.text = post!!.room.name
-        if (post!!.photo != null) {
-            Picasso.get().load(post!!.photo.image).into(holder.tvPhoto)
+        holder.tvUser.text = post?.photo?.user
+
+        if (post.is_important){
+            holder.Card.setCardBackgroundColor(Color.RED)
         }
-        holder.tvUser.text = post?.photo?.user?.username
+        if (post.is_reacted){
+            holder.Card.setCardBackgroundColor(Color.GRAY)
+        }
+        val toDate = post!!.date.substring(0,10)
+        val toTime = post!!.date.substring(11,16)
+        holder.tvDate.text = String.format(holder.itemView.getContext().getString(R.string.from_date),toDate,toTime)
 
 
 

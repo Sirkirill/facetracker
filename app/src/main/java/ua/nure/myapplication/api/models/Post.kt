@@ -12,7 +12,8 @@ class Post(
     val photo: Photo,
     val is_important: Boolean,
     val is_reacted: Boolean,
-    val note: String
+    val note: String,
+    val date: String
 )
 
 class ItemList(val pk:Int,val name:String)
