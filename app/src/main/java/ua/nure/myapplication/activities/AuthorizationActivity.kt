@@ -14,7 +14,6 @@ import retrofit2.Response
 import ua.nure.myapplication.R
 import ua.nure.myapplication.adapters.AuthorizationPagerAdapter
 import ua.nure.myapplication.api.RetrofitClient
-import ua.nure.myapplication.api.models.UserItems
 import ua.nure.myapplication.helpers.LocaleHelper
 import ua.nure.myapplication.helpers.restartActivity
 

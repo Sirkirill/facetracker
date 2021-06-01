@@ -19,9 +19,9 @@
     <string name="ok">Ок</string>
     <string name="logout_message">Ви впевнені що хочете вийти?</string>
     <string name="deadline">Зробити до:</string>
-    <string name="my_tasks">Мої завдання</string>
+    <string name="my_tasks">Пости</string>
     <string name="units">Юніти:</string>
-    <string name="task">Завдання</string>
+    <string name="task">Пости</string>
     <string name="creator">Творець:</string>
     <string name="deadline_has_expired">Термін дії закінчився</string>
     <string name="description">Опис:</string>
@@ -30,4 +30,11 @@
     <string name="last_change">Остання зміна:</string>
     <string name="to">Кінець:</string>
     <string name="username_tag">\@%1s</string>
+    <string name="posts">Пости</string>
+    <string name="room">Приміщення</string>
+    <string name="user">Користувач</string>
+    <string name="is_important">Важливо</string>
+    <string name="is_reacted">Відреаговано</string>
+    <string name="save">Зберегти</string>
+    <string name="notes">Нотатки</string>
 </resources>

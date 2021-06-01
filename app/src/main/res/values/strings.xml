@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Collections</string>
+    <string name="app_name" translatable="false">FaceIn</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="username">Username</string>
@@ -20,8 +20,8 @@
     <string name="logout_message">Are you sure you want to logout?</string>
     <string name="deadline">Deadline:</string>
     <string name="units">Units:</string>
-    <string name="my_tasks">My Tasks</string>
-    <string name="task">Task</string>
+    <string name="my_tasks">Posts</string>
+    <string name="task">Post</string>
     <string name="description">Description:</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
@@ -30,4 +30,11 @@
     <string name="creator">Creator:</string>
     <string name="from_date">%1s %2sh</string>
     <string name="username_tag">\@%1s</string>
+    <string name="posts">Posts</string>
+    <string name="room">Room</string>
+    <string name="user">User</string>
+    <string name="is_important">Important</string>
+    <string name="is_reacted">Reacted</string>
+    <string name="save">Save</string>
+    <string name="notes">Notes</string>
 </resources>

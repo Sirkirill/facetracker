@@ -1,22 +1,19 @@
 package ua.nure.myapplication.activities
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.TextView
+import android.widget.*
+import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.nure.myapplication.R
 import ua.nure.myapplication.api.RetrofitClient
-import ua.nure.myapplication.api.models.Item
-import ua.nure.myapplication.helpers.isDeadlinePassed
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import ua.nure.myapplication.api.models.FlagUpdate
+import ua.nure.myapplication.api.models.Post
 
 class ItemActivity : AppCompatActivity() {
     companion object {
@@ -24,17 +21,16 @@ class ItemActivity : AppCompatActivity() {
     }
 
     private var itemId: Int = -1
-    private var item:Item? = null
+    private var post:Post? = null
     private lateinit var lsItem: FrameLayout
 
-    private lateinit var tvName:TextView
-    private lateinit var tvUnits:TextView
-    private lateinit var tvFrom:TextView
-    private lateinit var tvTo:TextView
-    private lateinit var tvDeadlineExpired:TextView
-    private lateinit var tvLastChange:TextView
-    private lateinit var tvCreator:TextView
-    private lateinit var tvDescription:TextView
+    private lateinit var tvPhoto:ImageView
+    private lateinit var tvRoom:TextView
+    private lateinit var tvUser:TextView
+    private lateinit var tvNote:com.google.android.material.textfield.TextInputEditText
+    private lateinit var tvImporance:CheckBox
+    private lateinit var tvReacted:CheckBox
+    private lateinit var tvButton:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,28 +41,47 @@ class ItemActivity : AppCompatActivity() {
 
         itemId = intent.getIntExtra(ITEM_ID_KEY,-1)
         lsItem = findViewById(R.id.ls_item)
+        tvImporance = findViewById(R.id.is_important)
+        tvReacted = findViewById(R.id.is_reacted)
+        tvRoom = findViewById(R.id.tv_room)
+        tvPhoto = findViewById(R.id.tv_photo)
+        tvUser = findViewById(R.id.tv_user)
+        tvNote = findViewById(R.id.tv_note)
 
-        tvName = findViewById(R.id.tv_name)
-        tvUnits = findViewById(R.id.tv_units)
-        tvFrom = findViewById(R.id.tv_from)
-        tvTo = findViewById(R.id.tv_to)
+        tvButton = findViewById(R.id.save)
 
-        tvDeadlineExpired = findViewById(R.id.tv_deadline_expired)
-        tvDeadlineExpired.visibility = View.GONE
+        tvButton.setOnClickListener {
+            var flags: FlagUpdate = FlagUpdate(
+                is_important = tvImporance.isChecked,
+                is_reacted = tvReacted.isChecked,
+                note = tvNote.text.toString()
+            )
 
-        tvLastChange = findViewById(R.id.tv_last_change)
-        tvCreator = findViewById(R.id.tv_creator)
-        tvDescription = findViewById(R.id.tv_description)
+            val call = RetrofitClient.getInstance(this).api.updatePost(itemId, flags)
+            call.enqueue(object : Callback<Post> {
+                override fun onFailure(call: Call<Post>, t: Throwable) {
+                    Toasty.error(
+                        this@ItemActivity,
+                        t.message!!,
+                        Toasty.LENGTH_LONG
+                    ).show()
+                }
 
+                override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                    lsItem.visibility = View.GONE
+                }
+            }
+            )
+        }
         getItem()
     }
 
     private fun getItem(){
         lsItem.visibility = View.VISIBLE
-        val call = RetrofitClient.getInstance(this).api.getItem(itemId)
+        val call = RetrofitClient.getInstance(this).api.getPost(itemId)
 
-        call.enqueue(object : Callback<Item>{
-            override fun onFailure(call: Call<Item>, t: Throwable) {
+        call.enqueue(object : Callback<Post>{
+            override fun onFailure(call: Call<Post>, t: Throwable) {
                 Toasty.error(
                     this@ItemActivity,
                     t.message!!,
@@ -74,9 +89,9 @@ class ItemActivity : AppCompatActivity() {
                 ).show()
             }
 
-            override fun onResponse(call: Call<Item>, response: Response<Item>) {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if (response.body() != null) {
-                    item = response.body()
+                    post = response.body()
                     initItemData()
                 } else {
                     Toasty.error(
@@ -92,29 +107,21 @@ class ItemActivity : AppCompatActivity() {
     }
 
     private fun initItemData() {
-        tvName.text = item!!.name
-        tvUnits.text = item!!.units.toString()
-
-        val fromDate = item!!.start_date.substring(0,10)
-        val fromTime = item!!.start_date.substring(11,16)
-        tvFrom.text = String.format(getString(R.string.from_date),fromDate,fromTime)
-
-        val toDate = item!!.end_date.substring(0,10)
-        val toTime = item!!.end_date.substring(11,16)
-        tvTo.text = String.format(getString(R.string.from_date),toDate,toTime)
-
-        if (isDeadlinePassed(item!!.end_date.replace("T", "").substring(0, 15))) {
-            tvDeadlineExpired.visibility = View.VISIBLE
-        } else {
-            tvDeadlineExpired.visibility = View.GONE
+        tvImporance.isChecked = post!!.is_important
+        tvReacted.isChecked = post!!.is_reacted
+        tvRoom.text = post!!.room.name
+        if (post!!.photo != null) {
+            Picasso.get().load(post!!.photo.image).into(tvPhoto)
         }
+        tvUser.text = post?.photo?.user?.username
+        tvNote.setText(post?.note)
 
-        val changeDate = item!!.last_change.substring(0,10)
-        val changeTime = item!!.last_change.substring(11,16)
-        tvLastChange.text = String.format(getString(R.string.from_date),changeDate,changeTime)
-        tvCreator.text = String.format(getString(R.string.username_tag),item!!.creator.username)
+//        if (isDeadlinePassed(post!!.end_date.replace("T", "").substring(0, 15))) {
+//            tvDeadlineExpired.visibility = View.VISIBLE
+//        } else {
+//            tvDeadlineExpired.visibility = View.GONE
+//        }
 
-        tvDescription.text = item!!.description
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

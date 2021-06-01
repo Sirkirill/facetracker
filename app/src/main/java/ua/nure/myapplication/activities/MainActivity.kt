@@ -20,7 +20,7 @@ import retrofit2.Response
 import ua.nure.myapplication.R
 import ua.nure.myapplication.adapters.ItemsAdapter
 import ua.nure.myapplication.api.RetrofitClient
-import ua.nure.myapplication.api.models.UserItems
+import ua.nure.myapplication.api.models.Post
 import ua.nure.myapplication.api.responses.DetailResponse
 import ua.nure.myapplication.decorations.SpacesItemDecoration
 import ua.nure.myapplication.dialogs.SimpleDialog
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var lsMain: FrameLayout
     private var lang: String? = null
-    private var userItems: UserItems? = null
+    private var userItems: List<Post>? = emptyList()
     private lateinit var rvItems: RecyclerView
     private lateinit var srlMain: SwipeRefreshLayout
 
@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         lang = intent.getStringExtra("lang")
 
         rvItems = findViewById(R.id.rv_items)
-        rvItems.layoutManager = GridLayoutManager(this, 2)
-        rvItems.addItemDecoration(SpacesItemDecoration(2, 20, false))
+        rvItems.layoutManager = GridLayoutManager(this, 1)
+        rvItems.addItemDecoration(SpacesItemDecoration(1, 30, false))
 
         srlMain = findViewById(R.id.srl_main)
         srlMain.setOnRefreshListener {
@@ -103,10 +103,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getItemsList() {
-        val call = RetrofitClient.getInstance(this).api.getUserItems()
+        val call = RetrofitClient.getInstance(this).api.getPosts()
 
-        call.enqueue(object : Callback<UserItems> {
-            override fun onFailure(call: Call<UserItems>, t: Throwable) {
+        call.enqueue(object : Callback<List<Post>> {
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
                 Toasty.error(
                     this@MainActivity,
                     t.message!!,
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 lsMain.visibility = View.GONE
             }
 
-            override fun onResponse(call: Call<UserItems>, response: Response<UserItems>) {
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 if (response.body() != null) {
                     userItems = response.body()
                     initItemsRecyclerView()
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initItemsRecyclerView() {
-        val adapter = ItemsAdapter(this, userItems!!.assigned_items)
+        val adapter = ItemsAdapter(this, userItems)
         rvItems.adapter = adapter
     }
 
