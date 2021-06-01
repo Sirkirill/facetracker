@@ -88,7 +88,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-                    if (response.body() != null) {
+                    if (response.body() != null && response.body()!!.is_security) {
                         SharedPrefManager.getInstance(activity!!).saveToken(response.body()!!.token)
                         val intent = Intent(activity!!, MainActivity::class.java)
                         intent.putExtra(
@@ -98,9 +98,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         startActivity(intent)
                         activity!!.finish()
                     } else {
+                        var error_msg: String = getString(R.string.something_wrong)
+
+                        if (response.body()!=null) {
+                            error_msg = getString(R.string.not_security)
+                        }
                         Toasty.error(
                             activity!!,
-                            getString(R.string.something_wrong),
+                            error_msg,
                             Toasty.LENGTH_LONG
                         ).show()
                     }
