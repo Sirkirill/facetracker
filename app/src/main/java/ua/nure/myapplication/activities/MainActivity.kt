@@ -161,40 +161,16 @@ class MainActivity : AppCompatActivity() {
 
         lsMain.visibility = View.VISIBLE
 
-        val call = RetrofitClient.getInstance(this).api.logout()
+        SharedPrefManager.getInstance(this@MainActivity).logout()
+        val intent = Intent(this@MainActivity, AuthorizationActivity::class.java)
+        intent.putExtra(
+            "lang",
+            SharedPrefManager.getInstance(this@MainActivity).getLanguage(null)
+        )
+        startActivity(intent)
+        finish()
+        lsMain.visibility = View.GONE
 
-        call.enqueue(object : Callback<DetailResponse?> {
-            override fun onFailure(call: Call<DetailResponse?>, t: Throwable) {
-                lsMain.visibility = View.GONE
-                Toasty.error(
-                    this@MainActivity,
-                    t.message!!,
-                    Toasty.LENGTH_LONG
-                ).show()
-            }
 
-            override fun onResponse(
-                call: Call<DetailResponse?>,
-                response: Response<DetailResponse?>
-            ) {
-                if (response.isSuccessful) {
-                    SharedPrefManager.getInstance(this@MainActivity).logout()
-                    val intent = Intent(this@MainActivity, AuthorizationActivity::class.java)
-                    intent.putExtra(
-                        "lang",
-                        SharedPrefManager.getInstance(this@MainActivity).getLanguage(null)
-                    )
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toasty.error(
-                        this@MainActivity,
-                        getString(R.string.something_wrong),
-                        Toasty.LENGTH_LONG
-                    ).show()
-                }
-                lsMain.visibility = View.GONE
-            }
-        })
     }
 }
